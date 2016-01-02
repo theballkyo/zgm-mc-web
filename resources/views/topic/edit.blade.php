@@ -21,7 +21,7 @@
 		    		<input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{ $topic->title }}">
 		    	</div>
 			</div>
-			
+
 			<div class="form-group">
 				<div class="col-sm-12">
 		    		<textarea id="body" name="body">{!! $topic->body !!}</textarea>
@@ -31,9 +31,9 @@
 				<div class="col-sm-12">
 					<button type="submit" class="btn btn-default">Edit</button>
 				</div>
-			</div>	
-			{!! csrf_field() !!}	
-			<input type="hidden" name="_method" value="put" />	
+			</div>
+			{!! csrf_field() !!}
+			<input type="hidden" name="_method" value="put" />
 		</form>
 	</div>
 </div>
@@ -42,5 +42,23 @@
 
 @section('script')
 	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-	<script>tinymce.init({ selector:'textarea#body' });</script>
+	<script>tinymce.init({
+		selector:'textarea#body',
+		height: 500,
+		theme: 'modern',
+		plugins: [
+		'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+		'searchreplace wordcount visualblocks visualchars code fullscreen',
+		'insertdatetime media nonbreaking save table contextmenu directionality',
+		'emoticons template paste textcolor colorpicker textpattern imagetools'
+		],
+		toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		toolbar2: 'print preview media | forecolor backcolor emoticons',
+		image_advtab: true,
+		templates: [
+		{ title: 'Test template 1', content: 'Test 1' },
+		{ title: 'Test template 2', content: 'Test 2' }
+		],
+
+	});</script>
 @endsection

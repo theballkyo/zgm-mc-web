@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div id="fb-root"></div>{{--
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=776272905731034";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>--}}
 <div class="panel panel-default">
 	@if (count($errors) > 0)
 		<div class="alert alert-danger">
@@ -25,10 +33,12 @@
 			Time :: {{ $topic->created_at }}
 		</p>
 		@if (auth()->check())
-				@if (auth()->user()->is_admin())
-					<a class="btn btn-danger" href="{{ action('TopicController@deleteConfirm', ['id' => $topic->id]) }}">Delete</a>
+				@if (auth()->user()->isMod())
+					<a class="btn btn-success" href="{{ action('TopicController@pin', ['id' => $topic->id]) }}">{{ $topic->isPin() ? 'Unpin' : 'Pin' }}</a>
+					<a class="btn btn-danger" href="{{ action('TopicController@lock', ['id' => $topic->id]) }}">{{ $topic->isLock() ? 'Unlock' : 'Lock' }}</a>
 				@endif
-				@if (auth()->user()->id === $topic->user->id)
+				@if ($topic->canEdit())
+					<a class="btn btn-danger" href="{{ action('TopicController@deleteConfirm', ['id' => $topic->id]) }}">Delete</a>
 					<a class="btn btn-info" href="{{action('TopicController@edit', ['id' => $topic->id])}}">Edit</a>
 				@endif
 			@endif
@@ -37,6 +47,11 @@
 	</div>
 		<hr>
 		{!! $topic->body !!}
+		{{--
+		<p>
+			<div class="fb-comments" data-href="{{ url()->current() }}" data-numposts="5" data-width="100%"></div>
+		</p>
+		--}}
 		<div class="infomation">
 			<small>Created by {{ $topic->user->name }} :: {{ $topic->created_at }}</small>
 		</div>
@@ -60,7 +75,8 @@
 @endforeach
 <hr>
 @if(Auth::guest())
-<a class="btn btn-default" href="{{ url('/login?next=/topic/').$topic->id }}">Login เพื่อตอบกระทู้</a>
+<a class="btn btn-default" href="{{ url('/login') }}">Login เพื่อตอบกระทู้</a>
+@elseif(!$topic->canReply())
 @else
 <form name="reply" class="form-horizontal" method="post" action="{{action('TopicController@storeReply')}}">
 	<div class="form-group">
@@ -74,7 +90,7 @@
 		</div>
 	</div>
 	<input type="hidden" name="id" value="{{ $topic->id }}">
-	{!! csrf_field() !!}        
+	{!! csrf_field() !!}
 </form>
 @section('script')
 	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
