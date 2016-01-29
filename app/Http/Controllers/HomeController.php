@@ -34,7 +34,7 @@ class HomeController extends Controller {
 		$topics = App\Topic::news()->orderBy('updated_at', 'desc')->get();
 		$authme = App\Authme::with('fe')->orderBy('lastlogin', 'desc')->get();
 		// dd($authme);
-
+		$users = $authme->
 		return view('home', ['topics' => $topics, 'authme' => $authme]);
 	}
 }

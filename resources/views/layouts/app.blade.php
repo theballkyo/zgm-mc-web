@@ -14,8 +14,8 @@
     <!-- Styles -->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    @yield('style')
     <link href="{{url('/style/zgm.css')}}" rel="stylesheet">
-
     <style>
         body {
             font-family: 'Lato';
@@ -101,7 +101,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Game status</div>
 
-                    @if ($mc_status)
+                    @if (!empty($mc_status) && !empty($mc_status->GetInfo()))
                         <b>Server IP :</b> mc-sv1.enjoyprice.in.th<br>
                         <b>Version :</b> {{$mc_status->GetInfo()['Version']}}<br>
                         <b>Player online :</b> {{$mc_status->GetInfo()['Players']}} / {{$mc_status->GetInfo()['MaxPlayers']}}.<br>
@@ -110,6 +110,10 @@
                     @else
                         Offline !
                     @endif
+                </div>
+
+                <div class="row">
+                    <div class="fb-page" data-href="https://www.facebook.com/zonegamer" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/zonegamer"><a href="https://www.facebook.com/zonegamer">ZoneGamer Community</a></blockquote></div></div>
                 </div>
             </div>
             <div class="col-md-9">
