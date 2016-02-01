@@ -19,6 +19,10 @@ class Authme extends Model {
 	public function fe() {
 		return $this->hasOne('App\FeAccount', 'name', 'username');
 	}
+
+	public function money() {
+		return $this->hasOne('App\IConomy', 'username', 'username');
+	}
 }
 
 ?>

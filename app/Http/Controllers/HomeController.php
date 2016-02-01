@@ -32,9 +32,9 @@ class HomeController extends Controller {
 	 */
 	public function welcome() {
 		$topics = App\Topic::news()->orderBy('updated_at', 'desc')->get();
-		$authme = App\Authme::with('fe')->orderBy('lastlogin', 'desc')->get();
+		$authme = App\Authme::with('money')->get();
 		// dd($authme);
-		$users = $authme->
+
 		return view('home', ['topics' => $topics, 'authme' => $authme]);
 	}
 }

@@ -37,25 +37,6 @@ Route::group(['middleware' => ['web', 'minecraft']], function () {
 	Route::get('/topic/lock/{id}', 'TopicController@lock');
 	Route::resource('topic', 'TopicController');
 
-	Route::get('/api/money', function(){
-		/*
-		foreach(App\FeAccount::all() as $fe) {
-			$ico = App\IConomy::where('username', strtolower($fe->name))->first();
-			if (!empty($ico)) {
-				$ico->balance += $fe->money;
-				$ico->save();
-				echo $fe->name." :: Success :: ".$ico->balance . '<br>' ;
-			} else {
-				$ico = new App\IConomy;
-				$ico->username = strtolower($fe->name);
-				$ico->balance = $fe->money;
-				$ico->save();
-				echo $fe->name." :: Success :: ".$ico->balance . '<br>' ;
-			}
-		}
-		*/
-		return "Hello world";
-	});
 });
 
 Route::group(['middleware' => 'minecraft'], function () {

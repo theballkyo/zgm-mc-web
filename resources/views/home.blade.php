@@ -64,7 +64,7 @@
     @else
         <td class="text-center">{{ $user->username }}</td>
     @endif
-            <td class="text-center">{{ !empty($user->fe->money) ? $user->fe->money : 0.00 }}</td>
+            <td class="text-center">{{ !empty($user->money->balance) ? $user->money->balance : 0.00 }}</td>
                 <td class="text-center">{{ date("Y-m-d H:i:s", $user->lastlogin / 1000) }}</td>
             </tr>
         @endforeach
