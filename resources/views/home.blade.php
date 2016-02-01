@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('style')
-<link href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,dt-1.10.10,r-2.0.0/datatables.min.css"/>
 @endsection
 @section('content')
 <div id="fb-root"></div>
@@ -75,7 +75,7 @@
 @endsection
 
 @section('script')
-<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/s/bs-3.3.5/jq-2.1.4,dt-1.10.10,r-2.0.0/datatables.min.js"></script>
 <script>
   $(document).ready(function(){
       $('#player').DataTable();
