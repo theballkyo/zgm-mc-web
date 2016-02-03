@@ -31,7 +31,7 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function welcome() {
-		$topics = App\Topic::news()->orderBy('updated_at', 'desc')->get();
+		$topics = App\Topic::news()->orderBy('updated_at', 'desc')->limit(5)->get();
 		$authme = App\Authme::with('money')->get();
 		// dd($authme);
 

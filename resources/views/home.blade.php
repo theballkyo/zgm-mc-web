@@ -11,13 +11,13 @@
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=776272905731034";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<div class="panel panel-default">
+<div class="panel panel-success">
     <div class="panel-heading">ข่าวประกาศ</div>
 
     <div class="panel-body">
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
         @foreach($topics as $topic)
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading" role="tab" id="heading{{$topic->id}}">
                   <h4 class="panel-title">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$topic->id}}" aria-expanded="false" aria-controls="collapse{{$topic->id}}">
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading">Chat room</div>
 
     <div class="panel-body">
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-danger">
     <div class="panel-heading">Player stat</div>
 
     <div class="panel-body">

@@ -85,7 +85,7 @@
     <div class="container spark-screen">
         <div class="row">
             <div class="col-md-3">
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading">This is menu</div>
 
                     <ul class="list-group">
@@ -98,7 +98,7 @@
                     </ul>
                 </div>
 
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading">Game status</div>
 
                     @if (!empty($mc_status) && !empty($mc_status->GetInfo()))
