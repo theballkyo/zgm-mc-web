@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Itim&subset=thai,latin' rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
@@ -18,7 +18,8 @@
     <link href="{{url('/style/zgm.css')}}" rel="stylesheet">
     <style>
         body {
-            font-family: 'Lato';
+            font-family: 'Itim', cursive;
+            font-size: 1.5em;
         }
 
         .fa-btn {
@@ -98,18 +99,12 @@
                     </ul>
                 </div>
 
-                <div class="panel panel-info">
+                <div class="panel panel-info" id="game_info">
                     <div class="panel-heading">Game status</div>
-
-                    @if (!empty($mc_status) && !empty($mc_status->GetInfo()))
-                        <b>Server IP :</b> mc-sv1.enjoyprice.in.th<br>
-                        <b>Version :</b> {{$mc_status->GetInfo()['Version']}}<br>
-                        <b>Player online :</b> {{$mc_status->GetInfo()['Players']}} / {{$mc_status->GetInfo()['MaxPlayers']}}.<br>
-                        <b>Player list : </b>{{implode((array)$mc_status->GetPlayers(), ' ,')}} <br>
-                        <b>{{$mc_status->GetInfo()['HostName']}}'</b><br>
-                    @else
-                        Offline !
-                    @endif
+					<div class="panel-body">
+						<b>Server IP ::</b> mc-sv1.enjoyprice.in.th<br>
+						<b id="loading_status">กำลังโหลดสถานะเซิฟเวอร์ ...</b>
+					</div>
                 </div>
 
                 <div class="row">
@@ -131,6 +126,43 @@
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script>
+	
+	  $(document).ready(function(){
+		var $game_info = $("#game_info .panel-body");
+		var request = $.ajax({
+		  url: "//mcapi.ca/query/mc-sv1.enjoyprice.in.th/list",
+		  method: "POST",
+		  dataType: "json"
+		});
+		
+		request.done(function( msg ) {
+		  if(msg.status === false) {
+			$game_info.append("<b>สถานะ :: </b> ปิดปรับปรุงชั่วคราว");
+		  } else {
+			$game_info.append("<b>สถานะ :: </b> เปิดปกติ");
+			$game_info.append("<br><b>เวอร์ชั่น :: </b> " + msg.Version);
+			var $p = msg.Players;
+			var $l = $p.list;
+			$game_info.append("<br><b>ผู้เล่น :: </b> " + $p.online + "/" + $p.max);
+			if ($p.online > 0) {
+				$game_info.append("<br><b>รายชื่อผู้เล่นออนไลน์</b><br>");
+				$game_info.append($l.join(", "));
+			}
+		  }
+		  console.log(msg);
+		});
+		 
+		request.fail(function( jqXHR, textStatus ) {
+		  $game_info.append("<b>สถานะ :: </b> ปิดปรับปรุงชั่วคราว");
+		});
+		
+		request.always(function() {
+			$("#loading_status").remove();
+		});
+	  });
+	    
+	</script>
     @yield('script')
 </body>
 </html>
